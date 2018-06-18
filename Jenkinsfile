@@ -22,7 +22,6 @@ pipeline {
     }
     post {
     	always {
-    		echo "${currentBuild.description}"
     		echo "${getLastSuccessfulCommit()}"
     		
     		script {
@@ -40,9 +39,11 @@ pipeline {
 def getLastSuccessfulCommit() {
   def lastSuccessfulHash = null
   def lastSuccessfulBuild = currentBuild.rawBuild.getPreviousSuccessfulBuild()
+  echo '$lastSuccessfulBuild'
   if ( lastSuccessfulBuild ) {
     lastSuccessfulHash = commitHashForBuild( lastSuccessfulBuild )
   }
+  echo '$lastSuccessfulHash'
   return lastSuccessfulHash
 }
 
