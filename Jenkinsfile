@@ -1,10 +1,7 @@
 node {
- sh """
- git clone git@github.com:jenkinsci/git-changelog-plugin.git .
- """
-     
+
  def changelogString = gitChangelog returnType: 'STRING',
-  from: [type: 'REF', value: 'git-changelog-1.50'],
+  from: [type: 'REF', value: 'master'],
   to: [type: 'REF', value: 'master'],
   template: """
   <h1> Git Changelog changelog </h1>
