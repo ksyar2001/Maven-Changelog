@@ -36,10 +36,11 @@ pipeline {
 				if (exist) {
 					echo 'APPENDING FILE'
 				} else {
-					writeFile encoding: 'utf-8', file: 'relase-notes.md', text: changelogtext
+					writeFile encoding: 'utf-8', file: 'release-notes.md', text: changelogtext
 					sshagent (credentials: ['admin']) {
-                    sh "git commit -a -m 'Adding a release-note'"
-                    sh "git push"
+                    sh "git add release-notes.md"
+                    sh "git commit -m 'adding a new release-notes'"
+                    sh "git push origin HEAD:master"
                     }	  
 				}
 			}
