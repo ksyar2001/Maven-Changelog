@@ -25,12 +25,12 @@ pipeline {
     		echo "${currentBuild.description}"
     		echo "${getLastSuccessfulCommit()}"
     		
-    		script{
-    			currentBuild.description = gitChangelog from: [type: '', value: 'fa97be'],
-				returnType: 'STRING', template: '''{{#commits}}
-					[{{hash}}] **{{messageTitle}}** 
-					{{/commits}}''' 
-    		}
+    		script {
+    			currentBuild.description = gitChangelog returnType: 'STRING',
+    				template: '''{{#commits}}
+						[{{hash}}] **{{messageTitle}}** 
+						{{/commits}}''' 
+			}
     	}
     }
 }
