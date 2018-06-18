@@ -36,7 +36,11 @@ pipeline {
 				if (exist) {
 					echo 'APPENDING FILE'
 				} else {
-					echo 'NEW FILE'   
+					echo 'NEW FILE'
+					sshagent (credentials: ['admin']) {
+                    sh 'git tag -a env.BUILD_NUMBER env.GIT_PREVIOUS_SUCCESSFUL_COMMIT'
+                    sh 'git push --tags'
+                    }	  
 				}
 			}
     	}
