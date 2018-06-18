@@ -23,6 +23,11 @@ pipeline {
     post {
     	always {
     		echo 'IN POST SCRIPT'
+    		gitChangelog from: [type: 'COMMIT', value: 'fa97be'],
+			returnType: 'STRING', template: '''{{#commits}}
+				**{{messageTitle}}** 
+				{{/commits}}''',
+			to: [type: 'COMMIT', value: 'fa265a8']
     	}
     }
 }
