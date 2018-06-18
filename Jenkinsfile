@@ -54,7 +54,7 @@ def getlogText() {
 	return trimlogText(changelogtext)
 }
 
-def trimlogText(string log_text) {
+def trimlogText(String log_text) {
 	def lines = log_text.split('\n')
 	def trimmed_lines = []
 	trimmed_lines.add("##Release Notes for build: ${env.BUILD.NUMBER}")
