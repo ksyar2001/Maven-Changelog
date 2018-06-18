@@ -22,7 +22,7 @@ pipeline {
     }
     post {
     	always {
-    		echo ${currentBuild.description}
+    		echo "${currentBuild.description}"
     		gitChangelog from: [type: 'COMMIT', value: 'fa97be'],
 			returnType: 'STRING', template: '''{{#commits}}
 				**{{messageTitle}}** 
