@@ -31,8 +31,9 @@ pipeline {
     				template: '''{{#commits}}
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
-				changelogtext.each {
-				    line -> echo line
+				def lines = changelogtext.split('\n');
+				lines.each {
+				    word -> echo line
 				}
 
 				currentBuild.description = changelogtext
