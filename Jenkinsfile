@@ -33,7 +33,7 @@ pipeline {
 						{{/commits}}'''
 				def lines = changelogtext.split('\n');
 				lines.each {
-				    word -> echo line
+				    line -> echo line
 				}
 
 				currentBuild.description = changelogtext
