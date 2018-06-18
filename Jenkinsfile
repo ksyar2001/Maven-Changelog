@@ -1,8 +1,8 @@
 node {
 
  def changelogString = gitChangelog returnType: 'STRING',
-  from: [type: 'REF', value: 'master'],
-  to: [type: 'REF', value: 'master'],
+  from: [type: '', value: 'master'],
+  to: [type: '', value: 'master'],
   template: """<h1> Git Changelog changelog </h1>
   {{#commits}}
 	<p>
