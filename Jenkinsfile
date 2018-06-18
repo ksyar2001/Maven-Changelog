@@ -22,7 +22,7 @@ pipeline {
     }
     post {
     	always {
-    		echo "${getLastSuccessfulCommit()}"
+    		echo "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
     		
     		script {
     			def changelogtext = gitChangelog returnType: 'STRING',
