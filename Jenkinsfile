@@ -36,9 +36,10 @@ pipeline {
 				if (exist) {
 					echo 'APPENDING FILE'
 				} else {
-					echo 'NEW FILE'
+					writeFile encoding: 'utf-8', file: 'relase-notes.md', text: changelogtext
 					sshagent (credentials: ['admin']) {
-                    sh 'git log'
+                    sh "git commit -a -m 'Adding a release-note'"
+                    sh "git push"
                     }	  
 				}
 			}
