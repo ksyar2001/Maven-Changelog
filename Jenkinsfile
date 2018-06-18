@@ -24,7 +24,11 @@ pipeline {
     	always {
     		echo "${currentBuild.description}"
     		script{
-    			currentBuild.description = gitChangelog from: [type: 'COMMIT', value: 'fa97be'], returnType: 'CONTEXT'
+    			currentBuild.description = gitChangelog from: [type: 'COMMIT', value: 'fa97be'],
+				returnType: 'CONTEXT', template: '''{{#commits}}
+					**{{messageTitle}}** 
+					{{/commits}}''',
+				to: [type: 'COMMIT', value: 'fa265a8']   
     		}
     	}
     }
