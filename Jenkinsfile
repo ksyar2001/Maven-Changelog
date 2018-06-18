@@ -62,7 +62,7 @@ def trimlogText(String log_text) {
 	lines.each {
 	    line -> trimmed_lines.add((line.trim() + "  "));
 	}
-	def trimmedtext = trimmed_lines.join("\n");
+	def trimmedtext = trimmed_lines.join("\n") + "\n";
 	return trimmedtext;
 }
 
