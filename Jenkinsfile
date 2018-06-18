@@ -57,6 +57,7 @@ def getlogText() {
 def trimlogText(string log_text) {
 	def lines = log_text.split('\n')
 	def trimmed_lines = []
+	trimmed_lines.add("##Release Notes for build: ${env.BUILD.NUMBER}")
 	lines.each {
 	    line -> trimmed_lines.add(line.trim());
 	}
