@@ -20,4 +20,12 @@ pipeline {
             }
         }
     }
+    post {
+    	echo "==========IN POST BUILD=========="
+    	def changelog = gitChangelogApiBuilder()
+    		.withFromCommit(ZERO_COMMIT)
+   			.withToRef("refs/heads/master")
+   			.withTemplatePath("changelog.mustache")
+   			.toFile("CHANGELOG.md");
+    }
 }
