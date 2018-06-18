@@ -26,16 +26,17 @@ pipeline {
     		echo "${env.BUILD_NUMBER}"
     		
     		script {
-				currentBuild.description = getlogText();
+    			def trimmedtext = getlogText();
+				currentBuild.description = trimmedtext;
 				
-				def existing_releasenote = fileExists 'release-notes.md'
+				def existing_releasenote = fileExists 'release-notes.md';
 				if (existing_releasenote) {
-					sh "mv release-notes.md release-notes-previous.md"
-					writeFile encoding: 'utf-8', file: 'release-notes.md', text: trimmedtext
-					sh "cat release-notes-previous.md >> release-notes.md"
+					sh "mv release-notes.md release-notes-previous.md";
+					writeFile encoding: 'utf-8', file: 'release-notes.md', text: trimmedtext;
+					sh "cat release-notes-previous.md >> release-notes.md";
 					pushreleaseNotes();
 				} else {
-					writeFile encoding: 'utf-8', file: 'release-notes.md', text: trimmedtext
+					writeFile encoding: 'utf-8', file: 'release-notes.md', text: trimmedtext;
 					pushreleaseNotes();
 				}
 			}
@@ -51,22 +52,22 @@ def getlogText() {
 								[{{hash}}] **{{messageTitle}}**
 							{{/merge}}
 						{{/commits}}'''
-	return trimlogText(changelogtext)
+	return trimlogText(changelogtext);
 }
 
 def trimlogText(String log_text) {
-	def lines = log_text.split('\n')
-	def trimmed_lines = []
-	trimmed_lines.add("##Release Notes for build: ${env.BUILD_NUMBER}")
+	def lines = log_text.split('\n');
+	def trimmed_lines = [];
+	trimmed_lines.add("##Release Notes for build: ${env.BUILD_NUMBER}");
 	lines.each {
 	    line -> trimmed_lines.add(line.trim());
 	}
-	def trimmedtext = trimmed_lines.join("\n")
-	return trimmedtext
+	def trimmedtext = trimmed_lines.join("\n");
+	return trimmedtext;
 }
 
 def pushreleaseNotes() {
-	sh "git add release-notes.md"
-    sh "git commit -m 'adding a new release-notes'"
-    sh "git push origin HEAD:master"
+	sh "git add release-notes.md";
+    sh "git commit -m 'new release-notes for the build'";
+    sh "git push origin HEAD:master";
 }
