@@ -31,12 +31,13 @@ pipeline {
     				template: '''{{#commits}}
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
-				def lines = changelogtext.split('\n');
+				def lines = changelogtext.split('\n')
+				def trimmed_lines = []
 				lines.each {
-				    line -> echo line
+				    line -> trimmed_lines.add(line.trim());
 				}
-
-				currentBuild.description = changelogtext
+				currentBuild.description = trimmed_lines.join("\n")
+				
 				def exist = fileExists 'release-notes.md'
 				if (exist) {
 					echo 'APPENDING FILE'
