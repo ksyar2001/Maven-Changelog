@@ -26,7 +26,6 @@ pipeline {
     		
     		script {
     			def changelogtext = gitChangelog returnType: 'STRING',
-    				from : [type: "COMMIT", value: getLastSuccessfulCommit()],
     				template: '''{{#commits}}
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
@@ -39,11 +38,9 @@ pipeline {
 def getLastSuccessfulCommit() {
   def lastSuccessfulHash = null
   def lastSuccessfulBuild = currentBuild.rawBuild.getPreviousSuccessfulBuild()
-  echo lastSuccessfulBuild
   if ( lastSuccessfulBuild ) {
     lastSuccessfulHash = commitHashForBuild( lastSuccessfulBuild )
   }
-  echo lastSuccessfulHash
   return lastSuccessfulHash
 }
 
