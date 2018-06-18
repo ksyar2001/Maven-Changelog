@@ -31,7 +31,7 @@ pipeline {
     				template: '''{{#commits}}
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
-				currentBuild.description = changelogtext
+				currentBuild.description = changelogtext.trim()
 				def exist = fileExists 'release-notes.md'
 				if (exist) {
 					echo 'APPENDING FILE'
