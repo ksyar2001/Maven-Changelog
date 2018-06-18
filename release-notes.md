@@ -1,3 +1,6 @@
+## Release Notes for build: 66  
+[03ea37c76b2ba83] **trailing new line**  
+[7a4812ad4a6bdca] **new release-notes for the build**  
 ## Release Notes for build: 65  
 [57cfa5bfe352db0] **trailing space**  
 [8a1843d5316da7a] **new release-notes for the build**  ##Release Notes for build: 64
