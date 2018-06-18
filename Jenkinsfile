@@ -60,7 +60,7 @@ def trimlogText(String log_text) {
 	def trimmed_lines = [];
 	trimmed_lines.add("##Release Notes for build: ${env.BUILD_NUMBER}");
 	lines.each {
-	    line -> trimmed_lines.add(line.trim());
+	    line -> trimmed_lines.add((line.trim() + "  "));
 	}
 	def trimmedtext = trimmed_lines.join("\n");
 	return trimmedtext;
