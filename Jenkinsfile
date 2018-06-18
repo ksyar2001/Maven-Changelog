@@ -36,18 +36,19 @@ pipeline {
 				lines.each {
 				    line -> trimmed_lines.add(line.trim());
 				}
-				currentBuild.description = trimmed_lines.join("\n")
+				def trimmedtext = trimmed_lines.join("\n")
+				currentBuild.description = trimmedtext
 				
 				def exist = fileExists 'release-notes.md'
 				if (exist) {
 					sh "mv release-notes.md release-notes-previous.md"
-					writeFile encoding: 'utf-8', file: 'release-notes.md', text: changelogtext
+					writeFile encoding: 'utf-8', file: 'release-notes.md', text: trimmedtext
 					sh "cat release-notes-previous.md >> release-notes.md"
 					sh "git add release-notes.md"
 					sh "git commit -m 'appending to the release-notes'"
 					sh "git push origin HEAD:master"
 				} else {
-					writeFile encoding: 'utf-8', file: 'release-notes.md', text: changelogtext
+					writeFile encoding: 'utf-8', file: 'release-notes.md', text: trimmedtext
 					sshagent (credentials: ['admin']) {
                     sh "git add release-notes.md"
                     sh "git commit -m 'adding a new release-notes'"
