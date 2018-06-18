@@ -40,7 +40,12 @@ pipeline {
 				
 				def exist = fileExists 'release-notes.md'
 				if (exist) {
-					echo 'APPENDING FILE'
+					sh "mv release-notes.md release-notes-previous.md"
+					writeFile encoding: 'utf-8', file: 'release-notes.md', text: changelogtext
+					sh "cat release-notes-previous.md >> release-notes.md"
+					sh "git add release-notes.md"
+					sh "git commit -m 'appending to the release-notes'"
+					sh "git push origin HEAD:master"
 				} else {
 					writeFile encoding: 'utf-8', file: 'release-notes.md', text: changelogtext
 					sshagent (credentials: ['admin']) {
