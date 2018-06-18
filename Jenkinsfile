@@ -21,8 +21,9 @@ pipeline {
         }
     }
     post {
-    	always {
+    	success {
     		echo "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+    		echo "${env.BUILD_NUMBER}"
     		
     		script {
     			def changelogtext = gitChangelog returnType: 'STRING',
@@ -31,20 +32,13 @@ pipeline {
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
 				currentBuild.description = changelogtext
+				
+				if (fileExist('release-notes.md')) {
+					echo 'APPENDING NOTES'
+				} else {
+					echo 'CREATING NEW NOTE'	
+				}
 			}
     	}
     }
 }
-
-def getLastSuccessfulCommit() {
-  def lastSuccessfulBuild = currentBuild.rawBuild.getPreviousSuccessfulBuild()
-  def lastSuccessfulHash = commitHashForBuild( lastSuccessfulBuild )
-  return lastSuccessfulHash
-}
-
-@NonCPS
-def commitHashForBuild( build ) {
-  def scmAction = build?.actions.find { action -> action instanceof jenkins.scm.api.SCMRevisionAction }
-  return scmAction?.revision?.hash
-}
-
