@@ -32,12 +32,7 @@ pipeline {
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
 				currentBuild.description = changelogtext
-				
-				if (fileExist('release-notes.md')) {
-					echo 'APPENDING NOTES'
-				} else {
-					echo 'CREATING NEW NOTE'	
-				}
+				def exist = fileExists 'release-notes'
 			}
     	}
     }
