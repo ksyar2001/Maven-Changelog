@@ -39,11 +39,11 @@ pipeline {
 def getLastSuccessfulCommit() {
   def lastSuccessfulHash = null
   def lastSuccessfulBuild = currentBuild.rawBuild.getPreviousSuccessfulBuild()
-  echo $lastSuccessfulBuild
+  echo lastSuccessfulBuild
   if ( lastSuccessfulBuild ) {
     lastSuccessfulHash = commitHashForBuild( lastSuccessfulBuild )
   }
-  echo $lastSuccessfulHash
+  echo lastSuccessfulHash
   return lastSuccessfulHash
 }
 
