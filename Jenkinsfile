@@ -1,7 +1,4 @@
 pipeline {
-	environment {
-     changelogString = ""
-   }
     agent any
 
     stages {
@@ -25,11 +22,7 @@ pipeline {
     }
     post {
     	always {
-			def changelogString = gitChangelog from: [type: 'COMMIT', value: 'fa97be'],
-			returnType: 'STRING', template: '''{{#commits}}
-				**{{messageTitle}}** 
-				{{/commits}}''',
-			to: [type: 'COMMIT', value: 'fa265a8']
+    		echo 'IN POST SCRIPT'
     	}
     }
 }
