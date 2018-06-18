@@ -26,6 +26,7 @@ pipeline {
     		
     		script {
     			def changelogtext = gitChangelog returnType: 'STRING',
+    				from: [type: "COMMIT", value: env.GIT_PREVIOUS_SUCCESSFUL_COMMIT]
     				template: '''{{#commits}}
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
