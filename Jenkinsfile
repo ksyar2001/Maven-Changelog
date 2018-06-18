@@ -38,7 +38,7 @@ pipeline {
 				} else {
 					echo 'NEW FILE'
 					sshagent (credentials: ['admin']) {
-                    sh "git tag -a ${env.BUILD_NUMBER} ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+                    sh "git tag -a ${env.BUILD_NUMBER} 598ec16"
                     sh 'git push --tags'
                     }	  
 				}
