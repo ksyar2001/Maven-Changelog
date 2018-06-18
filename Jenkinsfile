@@ -1,5 +1,4 @@
 node {
- deleteDir()
  sh """
  git clone git@github.com:jenkinsci/git-changelog-plugin.git .
  """
