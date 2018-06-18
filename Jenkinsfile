@@ -32,7 +32,7 @@ pipeline {
 						[{{hash}}] **{{messageTitle}}** 
 						{{/commits}}'''
 				changelogtext.each {
-				    line -> echo '${line}'
+				    line -> echo line
 				}
 
 				currentBuild.description = changelogtext
